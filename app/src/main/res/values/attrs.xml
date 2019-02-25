@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LetterView">
+        <attr name="text" format="string" />
+        <attr name="text_color" format="color|reference" />
+        <attr name="text_size" format="dimension|reference" />
+        <attr name="underline_width" format="dimension|reference" />
+        <attr name="underline_height" format="dimension|reference" />
+        <attr name="underline_color" format="color|reference" />
+        <attr name="line_line_distance" format="dimension|reference" />
+        <attr name="line_text_distance" format="dimension|reference" />
+        <attr name="line_type" format="enum" >
+          <enum name="square" value="0"/>
+          <enum name="circle" value="1"/>
+        </attr>
+    </declare-styleable>
+
+</resources>

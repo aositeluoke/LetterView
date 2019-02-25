@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:gravity="center"
+    android:orientation="vertical"
+    >
+
+
+
+    <com.intent.letterview.LetterView
+        android:id="@+id/letterView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:line_line_distance="12sp"
+        app:line_type="circle"
+        app:text_color="#ff0000"
+        app:text_size="24sp"
+        app:underline_color="@android:color/holo_red_dark"
+        app:underline_height="2dp"
+        app:underline_width="30dp" />
+
+
+    <TextView
+        android:id="@+id/btn_del"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:background="#ff0000"
+        android:clickable="true"
+        android:gravity="center"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="删除"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@id/letterView"
+        app:layout_constraintLeft_toRightOf="@id/letterView"
+        app:layout_constraintTop_toTopOf="@id/letterView" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+
+</android.support.constraint.ConstraintLayout>
