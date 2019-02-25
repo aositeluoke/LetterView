@@ -1,7 +1,6 @@
 package com.intent.letterview;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,13 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private FragmentPagerAdapter mPagerAdaper;
-    private LetterView letterView;
+    private LetterView mLetterView;
     private RecyclerView mRecyclerView;
-    String word = "perfect";
+    private  String mText = "perfect";
     private String mKeyString = "abcdefghijklmnopqrstuvwxyz";
     private RecyclerView.Adapter mAdapter;
-    private List<LetterDto> mData = new ArrayList<>();
+    private List<Character> mData = new ArrayList<>();
 
 
     @Override
@@ -28,11 +26,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mRecyclerView = findViewById(R.id.recyclerView);
-        letterView = findViewById(R.id.letterView);
+        mLetterView = findViewById(R.id.letterView);
         findViewById(R.id.btn_del).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                letterView.del();
+                mLetterView.del();
             }
         });
         initRecyclerView();
@@ -49,14 +47,14 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onBindViewHolder(ViewHolder holder, int position) {
-                String letter = mData.get(position).getLetter() + "";
+                String letter = mData.get(position) + "";
                 holder.tvLetter.setText(letter);
                 holder.itemView.setTag(letter);
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         String letter = view.getTag() + "";
-                        letterView.append(letter.charAt(0));
+                        mLetterView.append(letter.charAt(0));
                     }
                 });
             }
@@ -68,10 +66,10 @@ public class MainActivity extends AppCompatActivity {
         };
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 5));
         mRecyclerView.setAdapter(mAdapter);
-        letterView.initWord(word);
+        mLetterView.initWord(mText);
         char[] keyArray = mKeyString.toCharArray();
         for (char c : keyArray) {
-            mData.add(new LetterDto(c));
+            mData.add(c);
         }
         mAdapter.notifyDataSetChanged();
 
@@ -79,21 +77,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public class LetterDto {
-        public Character letter;
-
-        public LetterDto(Character letter) {
-            this.letter = letter;
-        }
-
-        public Character getLetter() {
-            return letter;
-        }
-
-        public void setLetter(Character letter) {
-            this.letter = letter;
-        }
-    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tvLetter;
