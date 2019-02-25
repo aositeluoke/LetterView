@@ -6,7 +6,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -94,7 +93,15 @@ public class LetterView extends View {
         mLinePaint.setColor(mUnderLineColor);
         mLinePaint.setStrokeWidth(mUnderLineHeight);
         mLinePaint.setStyle(Paint.Style.FILL_AND_STROKE);
-
+        switch (mLineType) {
+            case LINE_TYPE_CIRCLE:
+                mLinePaint.setStrokeCap(Paint.Cap.ROUND);
+                break;
+            case LINE_TYPE_SQUARE:
+            default:
+                mLinePaint.setStrokeCap(Paint.Cap.SQUARE);
+                break;
+        }
 
     }
 
@@ -143,31 +150,15 @@ public class LetterView extends View {
         for (int i = 0; i < mAllLetters.size(); i++) {
             int row = i / columnNum;
             int column = i % columnNum;
-
-
-            switch (mLineType) {
-                case LINE_TYPE_CIRCLE:
-                    mLinePaint.setStrokeWidth(1);
-                    float left = (singleBoxW - mUnderLineWidth) / 2 + column * singleBoxW + 1 / 2f;
-                    float top = singleBoxH - mUnderLineHeight + 1 / 2f + row * singleBoxH;
-                    float right = left + mUnderLineWidth;
-                    float bottom = top + mUnderLineHeight;
-                    RectF rectF = new RectF(left, top, right, bottom);
-                    canvas.drawRoundRect(rectF, mUnderLineHeight / 2f, mUnderLineHeight / 2f, mLinePaint);
-                    break;
-                case LINE_TYPE_SQUARE:
-                default:
-                    float startX = (column * singleBoxW) + mLineLineDistance / 2f;
-                    float startY = (row + 1) * singleBoxH - mUnderLineHeight / 2f;
-                    float stopX = (column * singleBoxW) + mLineLineDistance / 2f + mUnderLineWidth;
-                    float stopY = (row + 1) * singleBoxH - mUnderLineHeight / 2f;
-                    canvas.drawLine(startX,
-                            startY,
-                            stopX,
-                            stopY,
-                            mLinePaint);
-                    break;
-            }
+            float startX = (column * singleBoxW) + mLineLineDistance / 2f;
+            float startY = (row + 1) * singleBoxH - mUnderLineHeight / 2f;
+            float stopX = (column * singleBoxW) + mLineLineDistance / 2f + mUnderLineWidth;
+            float stopY = (row + 1) * singleBoxH - mUnderLineHeight / 2f;
+            canvas.drawLine(startX,
+                    startY,
+                    stopX,
+                    stopY,
+                    mLinePaint);
 
             if (mCurLetters.size() > i) {
                 mLetterPaint.getTextBounds(mCurLetters.get(i) + "", 0, 1, mTextRect);
